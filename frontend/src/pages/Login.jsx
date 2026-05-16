@@ -1,5 +1,7 @@
 import axios from "axios";
+
 import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -22,13 +24,19 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        formData,
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        formData
       );
 
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem(
+        "token",
+        res.data.token
+      );
 
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
 
       navigate("/dashboard");
     } catch (error) {
@@ -39,9 +47,14 @@ function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-80">
-        <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
+        <h1 className="text-3xl font-bold text-center mb-6">
+          Login
+        </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
           <input
             type="email"
             name="email"
